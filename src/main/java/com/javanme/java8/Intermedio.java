@@ -1,9 +1,12 @@
 package com.javanme.java8;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
+import java.util.stream.Stream;
 
 /**
  * Clase con ejercicios nivel intermedio
@@ -15,7 +18,7 @@ public class Intermedio {
 
     /**
      * Contar el número de líneas no vacías que tiene el archivo pasado por parámetro.
-     * Usar nuevos métodos encontrados en la clase java.nio.file.Files en Java 8 para obtener un Stream de 
+     * Usar nuevos métodos encontrados en la clase java.nio.file.Files en Java 8 para obtener un Stream de
      * las líneas de texto un archivo.
      *
      * @param archivo Ruta al archivo que se desea evaluar
@@ -24,14 +27,19 @@ public class Intermedio {
      * @see java.util.stream.Stream
      */
     public long ejercicio1(Path archivo) {
-        throw new UnsupportedOperationException();
+        try (Stream<String> lines = Files.lines(archivo)) {
+            return lines.filter(s -> !s.isEmpty()).count();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     /**
      * Encuentra el número de caracteres que tiene la línea más larga del archivo.
-     * Usar nuevos métodos encontrados en la clase java.nio.file.Files en Java 8 para obtener un Stream de 
+     * Usar nuevos métodos encontrados en la clase java.nio.file.Files en Java 8 para obtener un Stream de
      * las líneas de texto de un archivo.
-     * Para poder obtener un OptionalInt como resultado, debes convertir el Stream a uno primitivo. 
+     * Para poder obtener un OptionalInt como resultado, debes convertir el Stream a uno primitivo.
      *
      * @param archivo Ruta al archivo que se desea evaluar
      * @return Cantidad de caracteres que tiene la línea más larga del archivo
@@ -40,16 +48,21 @@ public class Intermedio {
      * @see java.util.stream.IntStream
      */
     public OptionalInt ejercicio2(Path archivo) {
-        throw new UnsupportedOperationException();
+        try {
+            return Files.lines(archivo).mapToInt(String::length).max();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return OptionalInt.empty();
     }
 
     /**
      * De las palabras que se encuentran en el archivo pasado por parámetro, conviertelas a minúsculas,
      * sin duplicados, ordenadas primero por tamaño y luego alfabeticamente.
-     *
+     * <p>
      * Une todas las palabras en una cadena de texto separando cada palabra por un espacio (" ")
-     *
-     * Usa la constante REGEXP proveida al inicio de esta clase para hacer la separación de cadenas de texto a palabras. 
+     * <p>
+     * Usa la constante REGEXP proveida al inicio de esta clase para hacer la separación de cadenas de texto a palabras.
      * Es posible que esta expresión retorne palabras vacías por lo que tendrás que adicionar un filtro que las remueva.
      *
      * @param archivo Ruta al archivo que se desea evaluar
@@ -61,13 +74,18 @@ public class Intermedio {
      * @see java.util.stream.Collectors
      */
     public String ejercicio3(Path archivo) {
-        throw new UnsupportedOperationException();
+//        try {
+////            return Files.lines(archivo).
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        return null;
     }
 
     /**
      * Categorizar TODAS las palabras de las primeras 10 líneas del archivo pasado por parámetro en un Map cuya llave es el
      * número de caracteres y el valor es el listado de palabras que tienen esa cantidad de caracteres
-     *
+     * <p>
      * Usa la constante REGEXP proveida al inicio de esta clase para hacer la separación de cadenas de texto a palabras. Es posible
      * que esta expresión retorne palabras vacías por lo que tendrás que adicionar un filtro que las remueva.
      *

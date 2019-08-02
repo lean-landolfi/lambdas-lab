@@ -1,6 +1,8 @@
 package com.javanme.java8;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Clase con ejercicios nivel básico
@@ -17,7 +19,8 @@ public class Basico {
      * @return Lista que contiene las palabras en mayúsculas
      */
     public List<String> ejercicio1(List<String> palabras) {
-        throw new UnsupportedOperationException();
+        return palabras.stream().map(String::toUpperCase).collect(Collectors.toList());
+//        throw new UnsupportedOperationException();
     }
 
     /**
@@ -25,11 +28,11 @@ public class Basico {
      * Trata de usar uno de los nuevos métodos adicionados a las listas en Java 8
      *
      * @param listado cadenas de texto. Atención: Este listado es no modificable, por lo que una nueva lista de debe ser
-     * creada a partir de este listado, por ejemplo: {@code List<String> nuevaLista = new ArrayList<>(listado);}
+     *                creada a partir de este listado, por ejemplo: {@code List<String> nuevaLista = new ArrayList<>(listado);}
      * @return lista que contiene cadenas de texto cuyo tamaño de caracteres es superior a 10
      */
     public List<String> ejercicio2(List<String> listado) {
-        throw new UnsupportedOperationException();
+        return listado.stream().filter(s -> s.length() > 10).collect(Collectors.toList());
     }
 
     /**
@@ -42,11 +45,11 @@ public class Basico {
      * @see java.util.stream.Collectors
      */
     public String ejercicio3(List<String> listado) {
-        throw new UnsupportedOperationException();
+        return listado.stream().skip(2).limit(3).collect(Collectors.joining("-"));
     }
 
     /**
-     * Ordernar el listado pasado como parámetro usando orden natural numérico.
+     * Ordenar el listado pasado como parámetro usando orden natural numérico.
      * Atención, el listado contiene números como cadenas de texto, por lo tanto, se debe hacer conversión.
      * Usa la API Stream
      *
@@ -56,11 +59,11 @@ public class Basico {
      * @see java.util.stream.Collectors
      */
     public List<Integer> ejercicio4(List<String> listado) {
-        throw new UnsupportedOperationException();
+        return listado.stream().map(Integer::valueOf).sorted().collect(Collectors.toList());
     }
 
     /**
-     * Ordernar el listado pasado como parámetro primero por tamaño de la cadena de texto y luego alfabeticamente
+     * Ordenar el listado pasado como parámetro primero por tamaño de la cadena de texto y luego alfabeticamente
      * Usa la API Stream.
      * Crea un {@code Comparator<String>} compuesto para que compares primero por el tamaño y luego alfabeticamente.
      *
@@ -70,6 +73,6 @@ public class Basico {
      * @see java.util.stream.Collectors
      */
     public List<String> ejercicio5(List<String> listado) {
-        throw new UnsupportedOperationException();
+        return listado.stream().sorted(Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder())).collect(Collectors.toList());
     }
 }
